@@ -51,7 +51,7 @@ public class Retailer extends Store {
     // Method to calculate and set loyalty points
     public void setLoyaltyPoints(boolean isPaymentOnline, int vatInclusivePrice) {
         if (isPaymentOnline) {
-            this.loyaltyPoints = vatInclusivePrice * 1 / 100; // 1% of VAT inclusive price
+            this.loyaltyPoints = vatInclusivePrice / 100; // 1% of VAT inclusive price
         }
     }
 

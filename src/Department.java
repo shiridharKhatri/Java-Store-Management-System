@@ -10,7 +10,6 @@ public class Department extends Store {
                       String productName, double markedPrice) {
         // Calling superclass constructor
         super(storeId, storeName, location, openingHour);
-
         // Initializing attributes
         super.setTotalSales(totalSales); // Set total sales
         super.setTotalDiscount(totalDiscount); // Set total discount

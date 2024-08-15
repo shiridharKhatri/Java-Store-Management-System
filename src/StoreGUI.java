@@ -50,12 +50,10 @@ public class StoreGUI  {
           frame.setVisible(false);
           retailerRecordsContainer(false);
           departmentRecordsContainer(true);
-
         }else if(values.getSelectedItem().toString().equals("Retailer record")){
           frame.setVisible(false);
           departmentRecordsContainer(false);
           retailerRecordsContainer(true);
-
         }
       }
     });
@@ -163,13 +161,13 @@ public class StoreGUI  {
     closingHour.setBorder(null);
 
     JButton addBtn = new JButton();
-
     addBtn.setFocusPainted(false);
     addBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
     addBtn.setBorder(border);
     addBtn.setBackground(secondaryColor);
     addBtn.setForeground(mainColor);
     addBtn.setPreferredSize(new Dimension(100, 35));
+
     JButton clearBtn = new JButton("Clear");
     clearBtn.setFocusPainted(false);
     clearBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -177,13 +175,15 @@ public class StoreGUI  {
     clearBtn.setBackground(null);
     clearBtn.setForeground(secondaryColor);
     clearBtn.setPreferredSize(new Dimension(10, 35));
+
     JButton calculateDiscount = new JButton("Calculate discount");
     calculateDiscount.setPreferredSize(new Dimension(150, 30));
     calculateDiscount.setFocusPainted(false);
     calculateDiscount.setCursor(new Cursor(Cursor.HAND_CURSOR));
     calculateDiscount.setBorder(border);
-    calculateDiscount.setBackground(null);
-    calculateDiscount.setForeground(secondaryColor);
+    calculateDiscount.setBackground(secondaryColor);
+    calculateDiscount.setForeground(mainColor);
+
     JButton setLoyaltyPoint = new JButton("Set Loyalty");
     setLoyaltyPoint.setFocusPainted(false);
     setLoyaltyPoint.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -191,6 +191,7 @@ public class StoreGUI  {
     setLoyaltyPoint.setBackground(secondaryColor);
     setLoyaltyPoint.setForeground(mainColor);
     setLoyaltyPoint.setPreferredSize(new Dimension(100, 30));
+
     JButton removeProduct = new JButton("Remove product");
     removeProduct.setPreferredSize(new Dimension(100, 30));
     removeProduct.setFocusPainted(false);
@@ -231,6 +232,12 @@ public class StoreGUI  {
     JLabel vatIncPriceErrorLbl = new JLabel();
     vatIncPriceErrorLbl.setForeground(Color.RED);
     vatIncPriceErrorLbl.setFont(new Font("Arial", Font.PLAIN, 10));
+    JLabel openingHourErrorLbl = new JLabel();
+    openingHourErrorLbl.setForeground(Color.RED);
+    openingHourErrorLbl.setFont(new Font("Arial", Font.PLAIN, 10));
+    JLabel closingHourErrorLbl = new JLabel();
+    closingHourErrorLbl.setForeground(Color.RED);
+    closingHourErrorLbl.setFont(new Font("Arial", Font.PLAIN, 10));
 
 //    Purchase year combobox
     JComboBox<Integer> years = new JComboBox<>();
@@ -265,22 +272,27 @@ public class StoreGUI  {
     panel.add(storeNameLbl, gbc);
     gbc.gridy = 3;
     panel.add(storeNameTf, gbc);
-    gbc.insets = new Insets(8, 5, -15, 5);
+    gbc.insets = new Insets(10, 5, -15, 5);
     gbc.gridy = 4;
     panel.add(storeNameErrorLbl, gbc);
-
-//    Opening Hour
     gbc.insets = new Insets(15, 5, -15, 5);
+//    Opening Hour
     gbc.gridwidth = 1;
     gbc.gridx = 3;
     gbc.gridy = 3;
     panel.add(openingHour, gbc);
-
+    gbc.gridy = 4;
+    gbc.insets = new Insets(7, 5, -15, 5);
+    panel.add(openingHourErrorLbl, gbc);
 //    Closing Hour
     gbc.gridx = 4;
     gbc.gridy = 3;
+    gbc.insets = new Insets(15, 5, -15, 5);
     panel.add(closingHour, gbc);
-
+    gbc.gridy = 4;
+    gbc.insets = new Insets(7, 5, -15, 5);
+    panel.add(closingHourErrorLbl, gbc);
+    gbc.insets = new Insets(15, 5, -15, 5);
 //    Location section
     gbc.gridx = 0;
     gbc.gridy = 5;
@@ -291,7 +303,6 @@ public class StoreGUI  {
     gbc.gridy = 7;
     gbc.insets = new Insets(8, 5, -15, 5);
     panel.add(storeLocationErrorLbl, gbc);
-
 //    total sales section
     gbc.insets = new Insets(15, 5, -15, 5);
     gbc.gridy = 5;
@@ -302,7 +313,6 @@ public class StoreGUI  {
     gbc.gridy = 7;
     gbc.insets = new Insets(8, 5, -15, 5);
     panel.add(storeSalesErrorLbl, gbc);
-
 //    total discount
     gbc.insets = new Insets(15, 5, -15, 5);
     gbc.gridy = 8;
@@ -313,7 +323,6 @@ public class StoreGUI  {
     gbc.gridy = 10;
     gbc.insets = new Insets(8, 5, -15, 5);
     panel.add(storeDiscountErrorLbl, gbc);
-
 //    Product name/vat inc price
     gbc.insets = new Insets(15, 5, -15, 5);
     gbc.gridy = 8;
@@ -333,7 +342,6 @@ public class StoreGUI  {
       gbc.insets = new Insets(8, 5, -15, 5);
       panel.add(vatIncPriceErrorLbl, gbc);
     }
-
 //    marked Price
     gbc.insets = new Insets(15, 5, -15, 5);
     gbc.gridx = 0;
@@ -365,17 +373,18 @@ public class StoreGUI  {
     }
 
 //    Is paymnet Online
-    gbc.insets = new Insets(15, 5, -15, 5);    gbc.insets = new Insets(15, 5, -15, 5);
+    gbc.insets = new Insets(15, 5, -15, 5);
     gbc.gridy = 14;
     gbc.gridx = 0;
     panel.add(salesPaymentOption, gbc);
 
 //    Call to action buttons
-    gbc.insets = new Insets(30, 5, 10, 5);
+    gbc.insets = new Insets(30, 5, 5, 5);
+    gbc.fill = GridBagConstraints.BOTH;
+    gbc.gridy = 15;
     if ("DEPARTMENT".equals(type.toUpperCase())){
       gbc.ipady = 2;
       gbc.gridwidth = 1;
-      gbc.gridy = 15;
       gbc.gridx = 2;
       panel.add(clearBtn, gbc);
       gbc.gridx = 3;
@@ -383,15 +392,13 @@ public class StoreGUI  {
     }else if("RETAILER".equals(type.toUpperCase())){
       gbc.gridwidth = 1;
       gbc.ipady = 2;
-      gbc.gridy = 15;
-      gbc.gridx = 1;
+      gbc.gridx = 2;
       panel.add(clearBtn, gbc);
       gbc.gridx = 2;
       panel.add(removeProduct, gbc);
       gbc.gridx = 3;
       panel.add(setLoyaltyPoint, gbc);
     }
-
     gbc.gridx = 4;
     panel.add(addBtn, gbc);
 
@@ -413,8 +420,32 @@ public class StoreGUI  {
         storeSalesErrorLbl.setText("");
         storeTotalDiscountTf.setText("");
         storeSalesErrorLbl.setText("");
+        storeIdErrorLbl.setText("");
+        storeMPriceErrorLbl.setText("");
+        storePNameErrorLbl.setText("");
+        vatIncPriceErrorLbl.setText("");
+        openingHourErrorLbl.setText("");
+        closingHourErrorLbl.setText("");
+        loyaltyPointTf.setText("");
+        storeIdTf.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, lowOpaqColor));
+        storeNameTf.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, lowOpaqColor));
+        storeLocationTf.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, lowOpaqColor));
+        storeTotalSaleTf.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, lowOpaqColor));
+        storeTotalDiscountTf.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, lowOpaqColor));
+        productNameTf.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, lowOpaqColor));
+        vatIncPriceTf.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, lowOpaqColor));
+        markedPriceTf.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, lowOpaqColor));
+        loyaltyPointTf.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, lowOpaqColor));
+        openingHour.setBackground(comboboxBg);
+        openinghours[0] = "Opening Hour";
+        openingHour.setSelectedItem("Opening Hour");
+        openingHour.setForeground(Color.BLACK);
+        closingHour.setBackground(comboboxBg);
+        closingHour.setSelectedItem("Closing Hour");
+        closingHour.setForeground(Color.BLACK);
       }
     });
+
     addBtn.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
@@ -431,237 +462,228 @@ public class StoreGUI  {
         String open = (String) openingHour.getSelectedItem();
         String close = (String) closingHour.getSelectedItem();
 
-        //validating store id
-        boolean isIdNumber = true;
         try {
           Integer.parseInt(storeId);
-        } catch (Exception _) {
-          isIdNumber = false;
-        }
-
-        //validating totalSale
-        boolean isTotalSaleNumber = true;
-        try {
-          Integer.parseInt(totalSale);
-        } catch (Exception _) {
-          isTotalSaleNumber = false;
-        }
-
-        //validating total discount
-        boolean isTotalDiscountNumber = true;
-        try {
-          Integer.parseInt(totalDiscount);
-        } catch (Exception _) {
-          isTotalDiscountNumber = false;
-        }
-
-        //validating marked price
-        boolean isMarkedPriceNumber = true;
-        try {
-          Integer.parseInt(markedPrice);
-        } catch (Exception _) {
-          isMarkedPriceNumber = false;
-        }
-
-        //validating vatIncPrice price
-        boolean isVatIncPriceNumber = true;
-        try {
-          Integer.parseInt(vatIncPrice);
-        } catch (Exception _) {
-          isVatIncPriceNumber = false;
-        }
-
-        if ((markedPrice == null || markedPrice.isEmpty()) &&
-                (productName == null || productName.isEmpty()) &&
-                (totalDiscount == null || totalDiscount.isEmpty()) &&
-                (totalSale == null || totalSale.isEmpty()) &&
-                (location == null || location.isEmpty()) &&
-                (storeName == null || storeName.isEmpty()) &&
-                (storeId == null || storeId.isEmpty())
-        ) {
-          JOptionPane.showMessageDialog(panel, "Please fill all the fields", "Empty input field error!!", JOptionPane.ERROR_MESSAGE);
-        } else {
-          if (storeId == null || storeId.isEmpty()) {
+          if (storeId == null || storeId.isEmpty() || Integer.parseInt(storeId) < 0 ) {
             storeIdTf.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.RED));
             storeIdErrorLbl.setText("Invalid store id!!");
             isValid = false;
           } else {
-            if (isIdNumber) {
-              storeIdTf.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, lowOpaqColor));
-              storeIdErrorLbl.setText("");
-
-            } else {
-              storeIdTf.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.RED));
-              storeIdErrorLbl.setText("Enter number only!");
-              isValid = false;
-            }
+            storeIdTf.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, lowOpaqColor));
+            storeIdErrorLbl.setText("");
           }
+        } catch (Exception _) {
+          storeIdTf.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.RED));
+          storeIdErrorLbl.setText("Invalid store id!!");
+          isValid = false;
+        }
 
-          if (openinghours[0].equals(open) || closinghours[0].equals(close)) {
-            JOptionPane.showMessageDialog(panel, "Please choose opening and closing hour", "Hour option error!!", JOptionPane.ERROR_MESSAGE);
-            openingHour.setBackground(Color.RED);
-            closingHour.setBackground(Color.RED);
-            openingHour.setForeground(Color.WHITE);
-            closingHour.setForeground(Color.WHITE);
+        if (openinghours[0].equals(open) ) {
+          openingHour.setBackground(Color.RED);
+          openingHour.setForeground(Color.WHITE);
+          openingHourErrorLbl.setText("Please choose opening hour!");
+          isValid = false;
+        } else {
+          openingHour.setBackground(comboboxBg);
+          openingHour.setForeground(mainColor);
+          openingHourErrorLbl.setText("");
+        }
+        if (closinghours[0].equals(close)) {
+          closingHour.setBackground(Color.RED);
+          closingHour.setForeground(Color.WHITE);
+          closingHourErrorLbl.setText("Please choose opening hour!");
+          isValid = false;
+        } else {
+          closingHour.setBackground(comboboxBg);
+          closingHour.setForeground(mainColor);
+          closingHourErrorLbl.setText("");
+        }
+
+        if (storeName == null ||  storeName.length() <= 1 || storeName.length() >= 20){
+          storeNameTf.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.RED));
+          storeNameErrorLbl.setText("Enter number of characters between 1 to 20 only!!");
+          isValid = false;
+        } else {
+          try {
+            Integer.parseInt(storeName);
             isValid = false;
-          } else {
-            openingHour.setBackground(comboboxBg);
-            closingHour.setBackground(comboboxBg);
-            openingHour.setForeground(mainColor);
-            closingHour.setForeground(mainColor);
-
-          }
-
-          if (storeName == null || storeName.isEmpty()) {
             storeNameTf.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.RED));
-            storeNameErrorLbl.setText("Invalid store name!!");
-            isValid = false;
-          } else {
+            storeNameErrorLbl.setText("Enter name in string only!!");
+          } catch (Exception _) {
             storeNameTf.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, lowOpaqColor));
             storeNameErrorLbl.setText("");
-
           }
+        }
 
-
-          if (location == null || location.isEmpty()) {
-            storeLocationTf.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.RED));
-            storeLocationErrorLbl.setText("Invalid store location!!");
+        if (location == null || location.length() <= 1 || storeName.length() >= 40) {
+          storeLocationTf.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.RED));
+          storeLocationErrorLbl.setText("Enter number of characters between 1 to 20 only!!");
+          isValid = false;
+        } else {
+          try {
+            Integer.parseInt(location);
             isValid = false;
-          } else {
+            storeLocationTf.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.RED));
+            storeLocationErrorLbl.setText("Enter location in string only!!");
+          } catch (Exception _) {
             storeLocationTf.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, lowOpaqColor));
             storeLocationErrorLbl.setText("");
-
           }
+        }
 
-
-          if (totalSale == null || totalSale.isEmpty()) {
+        try {
+          Integer.parseInt(totalSale);
+          if (totalSale.isEmpty() || Integer.parseInt(totalSale) < 0) {
             storeTotalSaleTf.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.RED));
             storeSalesErrorLbl.setText("Invalid store sale amount!!");
             isValid = false;
           } else {
-            if (isTotalSaleNumber) {
-              storeTotalSaleTf.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, lowOpaqColor));
-              storeSalesErrorLbl.setText("");
-
-            } else {
-              storeTotalSaleTf.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.RED));
-              storeSalesErrorLbl.setText("Invalid input enter sales in number!!");
-              isValid = false;
-            }
+            storeTotalSaleTf.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, lowOpaqColor));
+            storeSalesErrorLbl.setText("");
           }
+        } catch (Exception _) {
+          storeTotalSaleTf.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.RED));
+          storeSalesErrorLbl.setText("Invalid input enter sales in number!!");
+          isValid = false;
+        }
 
-
-          if (totalDiscount == null || totalDiscount.isEmpty()) {
+        try {
+          Integer.parseInt(totalDiscount);
+          if (totalDiscount.isEmpty() || Integer.parseInt(totalDiscount) < 0) {
             storeTotalDiscountTf.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.RED));
             storeDiscountErrorLbl.setText("Invalid store discount!!");
             isValid = false;
           } else {
-            if (isTotalDiscountNumber) {
-              storeTotalDiscountTf.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, lowOpaqColor));
-              storeDiscountErrorLbl.setText("");
-
-            } else {
-              storeTotalDiscountTf.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.RED));
-              storeDiscountErrorLbl.setText("Invalid input enter discount in number!!");
-              isValid = false;
-            }
+            storeTotalDiscountTf.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, lowOpaqColor));
+            storeDiscountErrorLbl.setText("");
           }
+        } catch (Exception _) {
+          storeTotalDiscountTf.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.RED));
+          storeDiscountErrorLbl.setText("Invalid input enter discount in number!!");
+          isValid = false;
+        }
 
-          if("DEPARTMENT".equals(type.toUpperCase())) {
-            if (productName == null || productName.isEmpty()) {
+        if("DEPARTMENT".equals(type.toUpperCase())) {
+          if (productName == null || productName.isEmpty()) {
+            productNameTf.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.RED));
+            storePNameErrorLbl.setText("Invalid product name!!");
+            isValid = false;
+          } else {
+            try {
+              Integer.parseInt(productName);
               productNameTf.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.RED));
               storePNameErrorLbl.setText("Invalid product name!!");
               isValid = false;
-            } else {
+            } catch (Exception _) {
               productNameTf.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, lowOpaqColor));
               storePNameErrorLbl.setText("");
-
             }
           }
-          if("RETAILER".equals(type.toUpperCase())){
-            if (vatIncPrice == null || vatIncPrice.isEmpty()) {
+        }
+
+        if("RETAILER".equals(type.toUpperCase())){
+          try {
+            Integer.parseInt(vatIncPrice);
+            if (vatIncPrice.isEmpty() || Integer.parseInt(vatIncPrice) < 0) {
               vatIncPriceTf.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.RED));
               vatIncPriceErrorLbl.setText("Invalid Vat Inc price!!");
               isValid = false;
             } else {
-              if (!isVatIncPriceNumber) {
-                vatIncPriceTf.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.RED));
-                vatIncPriceErrorLbl.setText("Invalid input enter vat in number!!");
-                isValid = false;
-              } else {
-                vatIncPriceTf.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, lowOpaqColor));
-                vatIncPriceErrorLbl.setText("");
-              }
+              vatIncPriceTf.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, lowOpaqColor));
+              vatIncPriceErrorLbl.setText("");
             }
+          } catch (Exception _) {
+            vatIncPriceTf.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.RED));
+            vatIncPriceErrorLbl.setText("Invalid input enter vat in number!!");
+            isValid = false;
           }
 
-
-
-          if (markedPrice.isEmpty()) {
+        }
+        try {
+          Integer.parseInt(markedPrice);
+          if (markedPrice.isEmpty() || Integer.parseInt(markedPrice) <= 0 ) {
             markedPriceTf.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.RED));
             storeMPriceErrorLbl.setText("Invalid marked price!!");
             isValid = false;
           } else {
-            if (!isMarkedPriceNumber) {
-              markedPriceTf.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.RED));
-              storeMPriceErrorLbl.setText("Invalid input enter marked price in number!!");
-              isValid = false;
-            } else {
-              markedPriceTf.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, lowOpaqColor));
-              storeMPriceErrorLbl.setText("");
+            markedPriceTf.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, lowOpaqColor));
+            storeMPriceErrorLbl.setText("");
+          }
+        } catch (Exception _) {
+          markedPriceTf.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.RED));
+          storeMPriceErrorLbl.setText("Invalid input enter marked price in number!!");
+          isValid = false;
+        }
+
+        if(isValid) {
+          boolean storeExists = false;
+
+          // Check if the store ID already exists
+          for (Store data : storeList) {
+            if (data.getStoreId() == Integer.parseInt(storeId)) {
+              storeExists = true;
+              break;
             }
           }
 
-
-          if (!isValid) {
-            JOptionPane.showMessageDialog(panel, "Please fill all the fields", "Empty input field error!!", JOptionPane.ERROR_MESSAGE);
+          if (storeExists) {
+            storeIdTf.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.RED));
+            storeIdErrorLbl.setText("Store id exists!!");
           } else {
-            boolean storeExists = false;
+            storeIdTf.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, lowOpaqColor));
+            storeIdErrorLbl.setText("");
 
-            // Check if the store ID already exists
-            for (Store data : storeList) {
-              if (data.getStoreId() == Integer.parseInt(storeId)) {
-                storeExists = true;
-                break;
-              }
-            }
-
-            if (storeExists) {
-              storeIdTf.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.RED));
-              storeIdErrorLbl.setText("Store id exists!!");
-            } else {
-              storeIdTf.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, lowOpaqColor));
-              storeIdErrorLbl.setText("");
-
-              if ("DEPARTMENT".equals(type.toUpperCase())) {
-                storeList.add(new Department(
-                        Integer.parseInt(storeId),
-                        storeName,
-                        location,
-                        open + " to " + close,
-                        Double.parseDouble(totalSale),
-                        Double.parseDouble(totalDiscount),
-                        productName,
-                        Double.parseDouble(markedPrice)
-                ));
-                JOptionPane.showMessageDialog(panel, "Thank you for adding department!!", "Success!!", JOptionPane.INFORMATION_MESSAGE);
-              } else if ("RETAILER".equals(type.toUpperCase())) {
-                Integer selectedYear = (Integer) years.getSelectedItem();
-                storeList.add(new Retailer(
-                        Integer.parseInt(storeId),
-                        storeName,
-                        location,
-                        open + " to " + close,
-                        Double.parseDouble(totalSale),
-                        Double.parseDouble(totalDiscount),
-                        Integer.parseInt(vatIncPrice),
-                        isPayment,
-                        String.valueOf(selectedYear)
-                ));
-                JOptionPane.showMessageDialog(panel, "Thank you for adding retailer!!", "Success!!", JOptionPane.INFORMATION_MESSAGE);
-              }
+            if ("DEPARTMENT".equals(type.toUpperCase())) {
+              storeList.add(new Department(
+                      Integer.parseInt(storeId),
+                      storeName,
+                      location,
+                      open + " to " + close,
+                      Double.parseDouble(totalSale),
+                      Double.parseDouble(totalDiscount),
+                      productName,
+                      Double.parseDouble(markedPrice)
+              ));
+              JOptionPane.showMessageDialog(panel, "Thank you for adding department!!", "Success!!", JOptionPane.INFORMATION_MESSAGE);
+            } else if ("RETAILER".equals(type.toUpperCase())) {
+              Integer selectedYear = (Integer) years.getSelectedItem();
+              storeList.add(new Retailer(
+                      Integer.parseInt(storeId),
+                      storeName,
+                      location,
+                      open + " to " + close,
+                      Double.parseDouble(totalSale),
+                      Double.parseDouble(totalDiscount),
+                      Integer.parseInt(vatIncPrice),
+                      isPayment,
+                      String.valueOf(selectedYear)
+              ));
+              JOptionPane.showMessageDialog(panel, "Thank you for adding retailer!!", "Success!!", JOptionPane.INFORMATION_MESSAGE);
             }
           }
+        }
+      }
+    });
+
+    removeProduct.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        boolean isIdFound = false;
+        for(Store data : storeList) {
+          if (data instanceof Retailer){
+            if(String.valueOf(data.getStoreId()).equals(storeIdTf.getText())){
+              isIdFound = true;
+              ((Retailer) data).removeProduct();
+              JOptionPane.showMessageDialog(panel, "Product removed with id "+data.getStoreId(), "Removed successfully!!", JOptionPane.INFORMATION_MESSAGE);
+            }
+          }
+        }
+        if(!isIdFound){
+          storeIdTf.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.RED));
+          storeIdErrorLbl.setText("Store id not found!!");
+        }else{
+          storeIdTf.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, lowOpaqColor));
+          storeIdErrorLbl.setText("");
         }
       }
     });
@@ -669,7 +691,6 @@ public class StoreGUI  {
     setLoyaltyPoint.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-
         if (storeList.isEmpty()) {
           JOptionPane.showMessageDialog(panel, "No records in the list to calculate loyalty points!!", "404 Not found!", JOptionPane.ERROR_MESSAGE);
         }else{
@@ -693,8 +714,14 @@ public class StoreGUI  {
                   storeIdErrorLbl.setText("");
                   if (String.valueOf(data.getStoreId()).equals(storeIdTf.getText())) {
                     isIdAvailable = true;
-                    ((Retailer) data).setLoyaltyPoints(((Retailer) data).isPaymentOnline(), ((Retailer) data).getVatInclusivePrice());
-                    JOptionPane.showMessageDialog(panel, ((Retailer) data).getLoyaltyPoints() + " loyalty points has ben added successfully!", "Success!", JOptionPane.NO_OPTION);
+                    if (!((Retailer) data).isPaymentOnline()) {
+                      JOptionPane.showMessageDialog(panel, "Failed! Loyalty point is calculated only if you purchase online.", "Error!", JOptionPane.WARNING_MESSAGE);
+                    } else if (((Retailer) data).getLoyaltyPoints() > 0) {
+                      JOptionPane.showMessageDialog(panel, "Failed!! loyalty points has been already added.", "Error!", JOptionPane.WARNING_MESSAGE);
+                    } else {
+                      ((Retailer) data).setLoyaltyPoints(((Retailer) data).isPaymentOnline(), ((Retailer) data).getVatInclusivePrice());
+                      JOptionPane.showMessageDialog(panel, ((Retailer) data).getLoyaltyPoints() + " loyalty points has been added successfully!", "Success!", JOptionPane.NO_OPTION);
+                    }
                   }
                 } else {
                   storeIdTf.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.RED));
@@ -731,7 +758,7 @@ public class StoreGUI  {
 
   public static void retailerContainer(boolean visibility){
     JFrame frame = new JFrame("Store | Retailer");
-    frame.setSize(850, 700);
+    frame.setSize(850, 750);
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     JPanel panel = new JPanel();
     panel.setOpaque(true);
@@ -961,11 +988,12 @@ public class StoreGUI  {
     JPanel bottomPanel = new JPanel(new BorderLayout());
     bottomPanel.setBackground(mainColor);
     bottomPanel.setBorder(null);
-    String[][] data = new String[storeList.size()][14];
+    String[][] data = new String[storeList.size()][16];
 
     int i = 0;
     for (Store storeData : storeList) {
       if (storeData instanceof Department) {
+        storeData.display();
         data[i][0] = String.valueOf(storeData.getStoreId());
         data[i][1] = storeData.getStoreName();
         data[i][2] = storeData.getLocation();
@@ -978,7 +1006,10 @@ public class StoreGUI  {
         data[i][9] = "-";
         data[i][10] = "-";
         data[i][11] = "-";
+        data[i][12] = String.valueOf(((Department) storeData).isInSales());
+        data[i][13] = "-";
       } else if (storeData instanceof Retailer) {
+        storeData.display();
         data[i][0] = String.valueOf(storeData.getStoreId());
         data[i][1] = storeData.getStoreName();
         data[i][2] = storeData.getLocation();
@@ -991,11 +1022,13 @@ public class StoreGUI  {
         data[i][9] = ((Retailer) storeData).getPurchasedYear();
         data[i][10] = String.valueOf(((Retailer) storeData).getLoyaltyPoints());
         data[i][11] = String.valueOf(((Retailer) storeData).getVatInclusivePrice());
+        data[i][12] = "-";
+        data[i][13] = String.valueOf(((Retailer) storeData).isPaymentOnline());
       }
       i++;
     }
 
-    String[] columnNames = {"Store Id", "Name", "Location", "Opening Hour", "Sales", "Discount", "Product name", "Marked price", "Type", "Purchase Year", "Loyalty point","VAT"};
+    String[] columnNames = {"Store Id", "Name", "Location", "Opening Hour", "Sales", "Discount", "Product name", "Marked price", "Type", "Purchase Year", "Loyalty point","VAT","Available", "Payment Online" };
     JTable datas = new JTable(data, columnNames);
     datas.setBackground(mainColor);
     datas.setForeground(textColor);
@@ -1137,6 +1170,7 @@ public class StoreGUI  {
     int i = 0;
     for (Store storeData : storeList) {
       if (storeData instanceof Department) {
+        storeData.display();
         data[i][0] = String.valueOf(storeData.getStoreId());
         data[i][1] = storeData.getStoreName();
         data[i][2] = storeData.getLocation();
@@ -1175,7 +1209,6 @@ public class StoreGUI  {
     }else{
       frame.add(bottomPanel, BorderLayout.CENTER);
     }
-
 
     frame.setLocationRelativeTo(null);
     frame.setVisible(visibility);
@@ -1288,10 +1321,12 @@ public class StoreGUI  {
         retailerCount++;
       }
     }
+
     String[][] data = new String[retailerCount][10];
     int i = 0;
     for (Store storeData : storeList) {
       if (storeData instanceof Retailer) {
+        storeData.display();
         data[i][0] = String.valueOf(storeData.getStoreId());
         data[i][1] = storeData.getStoreName();
         data[i][2] = storeData.getLocation();
@@ -1336,10 +1371,9 @@ public class StoreGUI  {
     frame.setVisible(visibility);
   }
 
-
   public static void departmentContainer(boolean visibility){
     JFrame frame = new JFrame("Store | Department");
-    frame.setSize(850, 700);
+    frame.setSize(850, 750);
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
     JLabel theme = new JLabel("Dark mode", JLabel.RIGHT);
@@ -1374,7 +1408,6 @@ public class StoreGUI  {
           theme.setText("Dark mode");
           isDarkMode = true;
         }
-
       }
 
       @Override
@@ -1515,6 +1548,7 @@ public class StoreGUI  {
         }
       }
     });
+
     getStartedButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
